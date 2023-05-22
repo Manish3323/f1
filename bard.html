@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>F1 Driver Laptimes</title>
+<script src="https://d3js.org/d3.v5.min.js"></script>
+</head>
+<body>
+
+<svg width="960" height="500">
+
+<g id="track">
+  <path d="M0 0 L960 0 L960 500 L0 500 Z" stroke="black" fill="none" />
+</g>
+
+<g id="markers">
+  <circle r="5" cx="0" cy="250" fill="red" />
+  <circle r="5" cx="100" cy="250" fill="blue" />
+  <circle r="5" cx="200" cy="250" fill="green" />
+  <circle r="5" cx="300" cy="250" fill="yellow" />
+  <circle r="5" cx="400" cy="250" fill="purple" />
+  <circle r="5" cx="500" cy="250" fill="orange" />
+  <circle r="5" cx="600" cy="250" fill="brown" />
+  <circle r="5" cx="700" cy="250" fill="black" />
+  <circle r="5" cx="800" cy="250" fill="white" />
+  <circle r="5" cx="960" cy="250" fill="gray" />
+</g>
+
+<script>
+
+var track = d3.select("#track");
+var markers = d3.select("#markers");
+
+// Fetch laptimes for all drivers
+d3.request("http://ergast.com/api/f1/2023/2/laps/1", function(error, response) {
+  if (error) {
+    console.log(error);
+  } else {
+    var laptimes = JSON.parse(response.text);
+
+    // Iterate over each driver
+    for (var i = 0; i < laptimes.length; i++) {
+      var driver = laptimes[i].driver;
+      var laptime = laptimes[i].time;
+
+      // Update the position of the marker for the current driver
+      markers.select("circle[fill='" + driver + "']")
+        .attr("cx", laptime * 10)
+
+    }
+  }
+});
+
+</script>
+
+</body>
+</html>
