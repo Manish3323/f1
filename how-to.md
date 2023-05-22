@@ -82,7 +82,6 @@ function transitionDriverMarker(driverId, time, color) {
     }
 ```
 
-This is final result
+This is final result 
 
-<video src="videos/result.mov" controls="controls" style="max-width: 730px;">
-</video>
+![result](./videos/result.mov)
